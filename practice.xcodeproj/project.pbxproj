@@ -16,6 +16,8 @@
 		40A240D620201AB0007B718E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A240D520201AB0007B718E /* main.m */; };
 		40A240E020201AB1007B718E /* practiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A240DF20201AB1007B718E /* practiceTests.m */; };
 		40A240EB20201AB1007B718E /* practiceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A240EA20201AB1007B718E /* practiceUITests.m */; };
+		40A2410320206F94007B718E /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A2410220206F94007B718E /* TableViewCell.m */; };
+		40A24106202078DB007B718E /* tabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A24105202078DB007B718E /* tabbarController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		40A240E620201AB1007B718E /* practiceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = practiceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A240EA20201AB1007B718E /* practiceUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = practiceUITests.m; sourceTree = "<group>"; };
 		40A240EC20201AB1007B718E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40A2410120206F94007B718E /* TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		40A2410220206F94007B718E /* TableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		40A24104202078DB007B718E /* tabbarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tabbarController.h; sourceTree = "<group>"; };
+		40A24105202078DB007B718E /* tabbarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tabbarController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +113,11 @@
 				40A240C420201AB0007B718E /* AppDelegate.m */,
 				40A240C620201AB0007B718E /* ViewController.h */,
 				40A240C720201AB0007B718E /* ViewController.m */,
+				40A2410120206F94007B718E /* TableViewCell.h */,
+				40A2410220206F94007B718E /* TableViewCell.m */,
 				40A240C920201AB0007B718E /* Main.storyboard */,
+				40A24104202078DB007B718E /* tabbarController.h */,
+				40A24105202078DB007B718E /* tabbarController.m */,
 				40A240CF20201AB0007B718E /* Assets.xcassets */,
 				40A240D120201AB0007B718E /* LaunchScreen.storyboard */,
 				40A240D420201AB0007B718E /* Info.plist */,
@@ -271,7 +281,9 @@
 				40A240C820201AB0007B718E /* ViewController.m in Sources */,
 				40A240CE20201AB0007B718E /* practice.xcdatamodeld in Sources */,
 				40A240D620201AB0007B718E /* main.m in Sources */,
+				40A2410320206F94007B718E /* TableViewCell.m in Sources */,
 				40A240C520201AB0007B718E /* AppDelegate.m in Sources */,
+				40A24106202078DB007B718E /* tabbarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

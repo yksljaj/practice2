@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+{
+    NSMutableArray *productName;
+}
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
+
 
 
 @end
