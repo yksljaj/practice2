@@ -7,48 +7,18 @@
 //
 
 #import "ViewController.h"
-#import "TableViewCell.h"
+#import "CustomTableCell.h"
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableview.delegate=self;
-    self.tableview.dataSource=self;
     
-    productName=[NSMutableArray new];
-    NSURL *url=[NSURL URLWithString:@"http://stg.render.ott.hinet.net/chtvideoApi/getRecommend.do?version=1.3&categoryId=/%E9%A6%96%E9%A0%81"];
-    NSURLSessionConfiguration *config=[NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session=[NSURLSession sessionWithConfiguration:config];
-    
-    NSURLSessionDataTask *dataTask=[session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if(error ==nil){
-            NSString *html=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            //NSLog(@"%@",html);
-        }else{
-            NSLog(@"下載錯誤:%@",error);
-        }
-        NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        //NSLog(@"%@",jsonObj);
-        NSDictionary *recommendInfo =[jsonObj objectForKey:@"recommendInfo"];
-        
-        for(NSDictionary *count in recommendInfo){
-            NSString *mediaList=[count objectForKey:@"mediaList"];
-            //NSLog(@"%@",mediaList);
-            for(NSDictionary *count1 in mediaList){
-                NSString *pn=[count1 objectForKey:@"productName"];
-                [productName addObject:pn];
-    
-            }
-        }
-        NSLog(@"%@",productName);
-        [_tableview reloadData];
-        }];
-    [dataTask resume];
-    
+    NSLog(@"pn2:%@",self.mediaList);
     
 }
 
@@ -57,14 +27,72 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [productName count];
+    int count=0;
+    for(int i=0;i<[self.mediaList count];i++){
+        if ([self.mediaList[i] valueForKey:@"productName"] !=[NSNull null]) {
+            NSArray *pn=[self.mediaList[i] valueForKey:@"productName"];
+            count+=[pn count];
+        }
+        
+    }
+    NSLog(@"%d",count);
+    return count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    static NSString *identifier=@"Cell";
+    CustomTableCell *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
     
-   cell.productNameLabel.text=[productName objectAtIndex:indexPath.row];
+    if(cell == nil){
+        UINib *nib=[UINib nibWithNibName:@"CustomTableCell" bundle:nil];
+        [tableView registerNib:nib forCellReuseIdentifier:identifier];
+        cell=[tableView dequeueReusableCellWithIdentifier:identifier];
+    }
+    
+    NSMutableArray *pn=[NSMutableArray new];
+    NSMutableArray *posterURL=[NSMutableArray new];
+    for(int i=0;i<[self.mediaList count];i++){
+        if ([self.mediaList[i] valueForKey:@"productName"] !=[NSNull null]) {
+            NSMutableArray *temp=[self.mediaList[i] valueForKey:@"productName"];
+            [pn addObjectsFromArray:temp];
+            
+            NSMutableArray *contentInfo=[self.mediaList[i] valueForKey:@"contentInfo"];
+            
+            for(int j=0;j<[contentInfo count];j++){
+                //NSLog(@"%d",[contentInfo[i] count]);
+                if([contentInfo[j] count]>1){
+                    NSString *test=[[[self.mediaList[i] valueForKey:@"contentInfo"][j] valueForKey:@"metadata"][0] valueForKey:@"posterURL"];
+                    NSLog(@"test:%@",test);
+                    //NSMutableArray *url=[[[self.mediaList[i] valueForKey:@"contentInfo"][0] valueForKey:@"metadata"]valueForKey:@"posterURL"];
+                    [posterURL addObject:test];
+                }else{
+                   // NSMutableArray *test=[[self.mediaList[i] valueForKey:@"contentInfo"][j] valueForKey:@"metadata"];
+                    
+                    
+                  NSMutableArray *url=[[[self.mediaList[i] valueForKey:@"contentInfo"][j] valueForKey:@"metadata"]valueForKey:@"posterURL"];
+                    [posterURL addObjectsFromArray:url];
+                    
+                }
+            }
+        }
+    }
+    
+    //NSArray *imageUrl=[[_mediaList valueForKey:@"contentInfo"]valueForKey:@"metadata"];
+    
+    //NSMutableArray *metadata=[[_mediaList valueForKey:@"contentInfo"]valueForKey:@"metadata"];
+    // NSLog(@"metadata:%@",metadata);
+    
+    //CIImage *image=[CIImage imageWithContentsOfURL:[posterURL objectAtIndex:indexPath.row]];
+    cell.imageView.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                 [NSURL URLWithString:[posterURL objectAtIndex:indexPath.row]]]];
+    NSLog(@"url:%@",[posterURL objectAtIndex:indexPath.row]);
+    cell.label.text=[pn objectAtIndex:indexPath.row];
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 160;
 }
 
 - (void)didReceiveMemoryWarning {

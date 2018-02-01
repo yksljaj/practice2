@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
-{
-    NSMutableArray *productName;
-}
+@property NSMutableArray *mediaList;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 
 

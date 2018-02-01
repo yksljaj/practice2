@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface tabbarController : UITabBarController
-
+@property NSMutableArray *mediaList;
 @end
