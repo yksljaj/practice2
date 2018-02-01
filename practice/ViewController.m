@@ -63,12 +63,8 @@
                 if([contentInfo[j] count]>1){
                     NSString *test=[[[self.mediaList[i] valueForKey:@"contentInfo"][j] valueForKey:@"metadata"][0] valueForKey:@"posterURL"];
                     NSLog(@"test:%@",test);
-                    //NSMutableArray *url=[[[self.mediaList[i] valueForKey:@"contentInfo"][0] valueForKey:@"metadata"]valueForKey:@"posterURL"];
                     [posterURL addObject:test];
                 }else{
-                   // NSMutableArray *test=[[self.mediaList[i] valueForKey:@"contentInfo"][j] valueForKey:@"metadata"];
-                    
-                    
                   NSMutableArray *url=[[[self.mediaList[i] valueForKey:@"contentInfo"][j] valueForKey:@"metadata"]valueForKey:@"posterURL"];
                     [posterURL addObjectsFromArray:url];
                     
