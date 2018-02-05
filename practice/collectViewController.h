@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface collectViewController : UIViewController<UICollectionViewDelegate,UICollectionViewDataSource>
-
+@property (weak, nonatomic) IBOutlet UICollectionView *collectview;
+@property NSMutableArray *mediaList;
 @end

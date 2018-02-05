@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     NSLog(@"pn2:%@",self.mediaList);
     
 }
@@ -32,6 +32,8 @@
         if ([self.mediaList[i] valueForKey:@"productName"] !=[NSNull null]) {
             NSArray *pn=[self.mediaList[i] valueForKey:@"productName"];
             count+=[pn count];
+            NSLog(@"row count:%d",count);
+
         }
         
     }
@@ -57,9 +59,9 @@
             [pn addObjectsFromArray:temp];
             
             NSMutableArray *contentInfo=[self.mediaList[i] valueForKey:@"contentInfo"];
-            
+            NSLog(@"cellForRow count:%d",i);
             for(int j=0;j<[contentInfo count];j++){
-                //NSLog(@"%d",[contentInfo[i] count]);
+                NSLog(@"cellForRow B count:%d",i);
                 if([contentInfo[j] count]>1){
                     NSString *test=[[[self.mediaList[i] valueForKey:@"contentInfo"][j] valueForKey:@"metadata"][0] valueForKey:@"posterURL"];
                     NSLog(@"test:%@",test);
@@ -73,23 +75,19 @@
         }
     }
     
-    //NSArray *imageUrl=[[_mediaList valueForKey:@"contentInfo"]valueForKey:@"metadata"];
-    
-    //NSMutableArray *metadata=[[_mediaList valueForKey:@"contentInfo"]valueForKey:@"metadata"];
-    // NSLog(@"metadata:%@",metadata);
-    
-    //CIImage *image=[CIImage imageWithContentsOfURL:[posterURL objectAtIndex:indexPath.row]];
-    cell.imageView.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:
+
+    cell.imageview.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:
                                                  [NSURL URLWithString:[posterURL objectAtIndex:indexPath.row]]]];
-    NSLog(@"url:%@",[posterURL objectAtIndex:indexPath.row]);
+    cell.imageview.layer.cornerRadius = 10;
     cell.label.text=[pn objectAtIndex:indexPath.row];
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 160;
+    return 128;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

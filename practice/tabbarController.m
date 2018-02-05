@@ -8,6 +8,7 @@
 
 #import "tabbarController.h"
 #import "ViewController.h"
+#import "collectViewController.h"
 @interface tabbarController ()
 
 @end
@@ -30,18 +31,16 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            //get Product name
+            
             self.mediaList=[[jsonObj objectForKey:@"recommendInfo"] valueForKey:@"mediaList"];
-            
-           
-            //get product image
-            
-            //NSURL *imageUrl=[NSURL URLWithString:[[[[[[[jsonObj objectForKey:@"recommendInfo"] objectAtIndex:0] objectForKey:@"mediaList"] valueForKey:@"contentInfo"] objectAtIndex:0]objectForKey:@"metadata"]valueForKey:@"posterURL"]];
-            //NSLog(@"%@",imageUrl);
+         
             ViewController *vc=self.viewControllers[0];
             vc.mediaList=[NSMutableArray arrayWithArray:self.mediaList];
             //NSLog(@"%@",vc.pn);
+            collectViewController *cvc=self.viewControllers[1];
+            cvc.mediaList=[NSMutableArray arrayWithArray:self.mediaList];
             [vc.tableview reloadData];
+            [cvc.collectview reloadData];
             
         });
         
@@ -49,8 +48,6 @@
     [dataTask resume];
     
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
