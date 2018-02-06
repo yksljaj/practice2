@@ -7,16 +7,28 @@
 //
 
 #import "AppDelegate.h"
-
+#import "TableViewController.h"
+#import "CollectionViewController.h"
 @interface AppDelegate ()
-
+{
+    UITabBarController *tabBarController;
+}
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    UITableViewController *tvc=[[TableViewController alloc] initWithNibName:@"TableViewController" bundle:nil];
+    tvc.tabBarItem.title=@"tableview";
+    UICollectionViewController *cvc=[[CollectionViewController alloc]initWithNibName:@"CollectionViewController" bundle:nil];;
+    NSArray *viewControllers=[NSArray arrayWithObjects:tvc,cvc, nil];
+    cvc.tabBarItem.title=@"collectionview";
+    [tabBarController setViewControllers:viewControllers animated:NO];
+    [self.window setRootViewController:tabBarController];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
