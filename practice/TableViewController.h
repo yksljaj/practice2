@@ -10,5 +10,5 @@
 
 @interface TableViewController : UITableViewController
 @property NSMutableArray *mediaList;
-
+-(void)fetchData;
 @end

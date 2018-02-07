@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/jessie/Desktop/practice/practice/CustomTableCell.h">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/jessie/Desktop/practice/practice/CustomTableCell.m">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

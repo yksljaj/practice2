@@ -13,6 +13,8 @@
 		402CE0B120299E5F00AAA298 /* CollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402CE0AF20299E5F00AAA298 /* CollectionViewController.xib */; };
 		402CE0B42029B29200AAA298 /* CustomTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 402CE0B32029B29100AAA298 /* CustomTableCell.m */; };
 		40323E8A2021BCF000CBADB8 /* CustomTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40323E892021BCF000CBADB8 /* CustomTableCell.xib */; };
+		40404CC3202ADCEC007D6C4B /* detailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40404CC1202ADCEC007D6C4B /* detailViewController.m */; };
+		40404CC4202ADCEC007D6C4B /* detailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40404CC2202ADCEC007D6C4B /* detailViewController.xib */; };
 		405616E320280AD700C22267 /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 405616E120280AD700C22267 /* CustomCollectionViewCell.m */; };
 		405616E420280AD700C22267 /* CustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405616E220280AD700C22267 /* CustomCollectionViewCell.xib */; };
 		40A240C520201AB0007B718E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A240C420201AB0007B718E /* AppDelegate.m */; };
@@ -52,6 +54,9 @@
 		402CE0B22029B29100AAA298 /* CustomTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CustomTableCell.h; path = /Users/jessie/Desktop/practice/practice/CustomTableCell.h; sourceTree = "<absolute>"; };
 		402CE0B32029B29100AAA298 /* CustomTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CustomTableCell.m; path = /Users/jessie/Desktop/practice/practice/CustomTableCell.m; sourceTree = "<absolute>"; };
 		40323E892021BCF000CBADB8 /* CustomTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableCell.xib; sourceTree = "<group>"; };
+		40404CC0202ADCEC007D6C4B /* detailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detailViewController.h; sourceTree = "<group>"; };
+		40404CC1202ADCEC007D6C4B /* detailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = detailViewController.m; sourceTree = "<group>"; };
+		40404CC2202ADCEC007D6C4B /* detailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = detailViewController.xib; sourceTree = "<group>"; };
 		405616E020280AD700C22267 /* CustomCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomCollectionViewCell.h; sourceTree = "<group>"; };
 		405616E120280AD700C22267 /* CustomCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomCollectionViewCell.m; sourceTree = "<group>"; };
 		405616E220280AD700C22267 /* CustomCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -135,6 +140,9 @@
 				405616E020280AD700C22267 /* CustomCollectionViewCell.h */,
 				405616E120280AD700C22267 /* CustomCollectionViewCell.m */,
 				405616E220280AD700C22267 /* CustomCollectionViewCell.xib */,
+				40404CC0202ADCEC007D6C4B /* detailViewController.h */,
+				40404CC1202ADCEC007D6C4B /* detailViewController.m */,
+				40404CC2202ADCEC007D6C4B /* detailViewController.xib */,
 				40A240CF20201AB0007B718E /* Assets.xcassets */,
 				40A240D120201AB0007B718E /* LaunchScreen.storyboard */,
 				40A240D420201AB0007B718E /* Info.plist */,
@@ -271,6 +279,7 @@
 				40A240D320201AB0007B718E /* LaunchScreen.storyboard in Resources */,
 				40A240D020201AB0007B718E /* Assets.xcassets in Resources */,
 				402CE0B120299E5F00AAA298 /* CollectionViewController.xib in Resources */,
+				40404CC4202ADCEC007D6C4B /* detailViewController.xib in Resources */,
 				40A240CB20201AB0007B718E /* Main.storyboard in Resources */,
 				402CE0AA202984AD00AAA298 /* TableViewController.xib in Resources */,
 				405616E420280AD700C22267 /* CustomCollectionViewCell.xib in Resources */,
@@ -302,6 +311,7 @@
 				40A240CE20201AB0007B718E /* practice.xcdatamodeld in Sources */,
 				40A240D620201AB0007B718E /* main.m in Sources */,
 				40A240C520201AB0007B718E /* AppDelegate.m in Sources */,
+				40404CC3202ADCEC007D6C4B /* detailViewController.m in Sources */,
 				402CE0A9202984AD00AAA298 /* TableViewController.m in Sources */,
 				405616E320280AD700C22267 /* CustomCollectionViewCell.m in Sources */,
 				402CE0B020299E5F00AAA298 /* CollectionViewController.m in Sources */,

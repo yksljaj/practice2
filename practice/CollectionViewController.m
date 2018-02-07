@@ -8,6 +8,7 @@
 
 #import "CollectionViewController.h"
 #import "CustomCollectionViewCell.h"
+#import "TableViewController.h"
 @interface CollectionViewController ()
 
 @end
@@ -18,13 +19,21 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Register cell classes
     UINib *nib=[UINib nibWithNibName:@"CustomCollectionViewCell" bundle:nil];
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"Cell"];
-    //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
     self.collectionView.backgroundColor = [UIColor whiteColor];
-    NSLog(@"cvc:%@",self.mediaList);
-    // Do any additional setup after loading the view.
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    self.collectionView.refreshControl=refreshControl;
+    
+}
+
+-(void)refresh:(UIRefreshControl *)sender{
+    TableViewController *vc= [[TableViewController alloc]init];
+    [vc fetchData];
+    [self.collectionView reloadData];
+    [sender endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,13 +103,6 @@ static NSString * const reuseIdentifier = @"Cell";
             NSLog(@"\ncannot find suitable row\n");
         }
     }
-    
-    
-    //cell.collectionImageView.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                           //[NSURL URLWithString:[posterURL objectAtIndex:indexPath.row]]]];
-    //cell.collectionImageView.layer.cornerRadius = 10;
-    //cell.collectionLabel.text=[pn objectAtIndex:indexPath.row];
-    
     
     return cell;
 }

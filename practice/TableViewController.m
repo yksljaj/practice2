@@ -9,6 +9,7 @@
 #import "TableViewController.h"
 #import "CustomTableCell.h"
 #import "CollectionViewController.h"
+#import "detailViewController.h"
 @interface TableViewController ()
 
 @end
@@ -43,7 +44,9 @@
             
             self.mediaList=[[jsonObj objectForKey:@"recommendInfo"] valueForKey:@"mediaList"];
             
-            CollectionViewController *cvc=self.tabBarController.viewControllers[1];
+            //pass data to collectionViewController
+            UINavigationController *navcvc=self.navigationController.parentViewController.childViewControllers[1];
+            CollectionViewController *cvc=navcvc.viewControllers[0];
             cvc.mediaList=self.mediaList;
             
             [self.tableView reloadData];
@@ -54,8 +57,8 @@
 }
 
 -(void)refresh{
+    [self fetchData];
     [self.refreshControl endRefreshing];
-     [self fetchData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -127,6 +130,14 @@ return 1;
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 128;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    long current_row=indexPath.row;
+    detailViewController *dvc=[[detailViewController alloc] initWithNibName:@"detailViewController" bundle:nil];
+    dvc.current_row=current_row;
+    dvc.mediaList=self.mediaList;
+    [self.navigationController pushViewController:dvc animated:YES];
 }
 
 /*
