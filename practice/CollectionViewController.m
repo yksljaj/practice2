@@ -9,6 +9,7 @@
 #import "CollectionViewController.h"
 #import "CustomCollectionViewCell.h"
 #import "TableViewController.h"
+#import "detailViewController.h"
 @interface CollectionViewController ()
 
 @end
@@ -132,6 +133,23 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     UIEdgeInsets edge = UIEdgeInsetsMake(20, 20, 0, 20);
     return edge;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
+    
+    CustomCollectionViewCell *selectCell =[collectionView cellForItemAtIndexPath:indexPath];
+    selectCell.backgroundColor = [UIColor lightGrayColor]; // highlight selection
+    detailViewController *dvc=[[detailViewController alloc] initWithNibName:@"detailViewController" bundle:nil];
+    long current_row=indexPath.row;
+    dvc.current_row=current_row;
+    dvc.mediaList=self.mediaList;
+    [self.navigationController pushViewController:dvc animated:YES];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CustomCollectionViewCell *diddeselectedCell =[collectionView cellForItemAtIndexPath:indexPath];
+    diddeselectedCell.backgroundColor = [UIColor clearColor];
 }
 #pragma mark <UICollectionViewDelegate>
 

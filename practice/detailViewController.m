@@ -16,7 +16,8 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     CGSize size=CGSizeZero;
-    CGRect rect = self.detailScrollView.bounds;
+    CGPoint current_origin=CGPointMake(self.detailScrollView.bounds.origin.x,self.detailScrollView.bounds.origin.y);
+    CGRect rect=CGRectMake(0, 0, self.detailScrollView.bounds.size.width, self.detailScrollView.bounds.size.height);
     UIImageView *lastOne=nil;
     NSMutableArray *pn=[NSMutableArray new];
     NSMutableArray *posterURL=[NSMutableArray new];
@@ -69,11 +70,27 @@
     }
     self.detailScrollView.contentSize=size;
     
+    CGPoint position;
+    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+    {
+        if((current_origin.x)!=(self.current_row*375)&&((current_origin.x)!=0)){
+            position=CGPointMake((current_origin.x), 0);
+        }else{
+            position = CGPointMake(375*(self.current_row), 0);
+        }
+    }else{
+        if((current_origin.x)!=(self.current_row*667)&&((current_origin.x)!=0)){
+            position=CGPointMake((current_origin.x), 0);
+        }else{
+            position = CGPointMake(667*(self.current_row), 0);
+        }
+    }
+    [self.detailScrollView setContentOffset:position animated:NO];
+    
 }
     - (void)viewDidLoad {
         [super viewDidLoad];
-        NSLog(@"current_row:%ld",self.current_row);
-        // Do any additional setup after loading the view from its nib.
+    
     }
     
     - (void)didReceiveMemoryWarning {

@@ -69,21 +69,21 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-return 1;
+    return [self.mediaList count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     int count=0;
-    for(int i=0;i<[self.mediaList count];i++){
-        if ([self.mediaList[i] valueForKey:@"productName"] !=[NSNull null]) {
-            NSArray *pn=[self.mediaList[i] valueForKey:@"productName"];
-            count+=[pn count];
-            NSLog(@"row count:%d",count);
-            
+    NSLog(@"getrow at section: %lu", section);
+    if (section < [self.mediaList count]) {
+        NSArray *pnArr = [self.mediaList[section] valueForKey:@"productName"];
+        if (![pnArr isEqual:[NSNull null]]) {
+            NSLog(@"    ==> section # %lu has %lu  productNames", section, (unsigned long)[pnArr count]);
+            count = [pnArr count];
+        } else {
+            NSLog(@"    ==> section # %lu has null array", section);
         }
-        
     }
-    NSLog(@"%d",count);
     return count;
 }
 
@@ -100,29 +100,28 @@ return 1;
     
     // search offset at specific row
     long targetRow = indexPath.row;
-    for(int i = 0 ; i <[self.mediaList count] ;i++) {
-        if (targetRow < [self.mediaList[i] count]) {
-            // cell is here
-            cell.label.text = [self.mediaList[i] valueForKey:@"productName"][targetRow];
-            //NSMutableArray *contentInfo = [self.mediaList[i] valueForKey:@"contentInfo"][targetRow][0];
-            //NSLog(@"name: %@", [self.mediaList[i] valueForKey:@"productName"][targetRow]);
-            //NSLog(@"info: %@", [self.mediaList[i] valueForKey:@"contentInfo"][targetRow][0]);
-            //[[self.mediaList[i] valueForKey:@"contentInfo"][targetRow][0] valueForKey:@"metadata"];
-            NSString *url=[[self.mediaList[i] valueForKey:@"contentInfo"][targetRow][0] valueForKeyPath:@"metadata.posterURL"];
-            cell.imageview.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-            cell.imageview.layer.cornerRadius = 10;
-            //NSLog(@"url: %@",[[[self.mediaList[i] valueForKey:@"contentInfo"][targetRow][0] valueForKey:@"metadata"] valueForKey:@"posterURL"]);
-            //NSLog(@"url: %@",[[self.mediaList[i] valueForKey:@"contentInfo"][targetRow][0] valueForKeyPath:@"metadata.posterURL"]);
-            //NSLog(@"url: %@", [contentInfo valueForKeyPath:@"metadata.posterURL"]);
-            break;
-        } else {
-            targetRow -= [self.mediaList[i] count];
-        }
-        if (targetRow < 0 ) {
-            NSLog(@"\ncannot find suitable row\n");
-        }
-    }
-    
+    long targetSec　= indexPath.section;
+    NSLog(@"prepare cell @section: %lu, @row: %lu", targetSec, targetRow);
+//    for(int i = 0 ; i <[self.mediaList count] ;i++) {
+//        if (targetRow < [self.mediaList[i] count]) {
+//            // cell is here
+//            cell.label.text = [self.mediaList[i] valueForKey:@"productName"][targetRow];
+//            NSString *url=[[self.mediaList[i] valueForKey:@"contentInfo"][targetRow][0] valueForKeyPath:@"metadata.posterURL"];
+//            cell.imageview.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+//            cell.imageview.layer.cornerRadius = 10;
+//            break;
+//        } else {
+//            targetRow -= [self.mediaList[i] count];
+//        }
+//        if (targetRow < 0 ) {
+//            NSLog(@"\ncannot find suitable row\n");
+//        }
+//    }
+//
+    cell.label.text = [self.mediaList[targetSec] valueForKey:@"productName"][targetRow];
+    NSString *url=[[self.mediaList[targetSec] valueForKey:@"contentInfo"][targetRow][0] valueForKeyPath:@"metadata.posterURL"];
+    cell.imageview.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    cell.imageview.layer.cornerRadius = 10;
     
     return cell;
 }
