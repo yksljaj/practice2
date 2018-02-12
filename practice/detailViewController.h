@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface detailViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIScrollView *detailScrollView;
+@interface detailViewController : UIViewController<UIScrollViewDelegate>
+@property (strong, nonatomic) IBOutlet UIScrollView *detailScrollView;
 @property long current_row;
 @property NSMutableArray *mediaList;
 @end

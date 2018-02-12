@@ -98,26 +98,9 @@
         cell=[tableView dequeueReusableCellWithIdentifier:identifier];
     }
     
-    // search offset at specific row
     long targetRow = indexPath.row;
-    long targetSec　= indexPath.section;
-    NSLog(@"prepare cell @section: %lu, @row: %lu", targetSec, targetRow);
-//    for(int i = 0 ; i <[self.mediaList count] ;i++) {
-//        if (targetRow < [self.mediaList[i] count]) {
-//            // cell is here
-//            cell.label.text = [self.mediaList[i] valueForKey:@"productName"][targetRow];
-//            NSString *url=[[self.mediaList[i] valueForKey:@"contentInfo"][targetRow][0] valueForKeyPath:@"metadata.posterURL"];
-//            cell.imageview.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-//            cell.imageview.layer.cornerRadius = 10;
-//            break;
-//        } else {
-//            targetRow -= [self.mediaList[i] count];
-//        }
-//        if (targetRow < 0 ) {
-//            NSLog(@"\ncannot find suitable row\n");
-//        }
-//    }
-//
+    long targetSec = indexPath.section;
+    //NSLog(@"prepare cell @section: %lu, @row: %lu", targetSec, targetRow);
     cell.label.text = [self.mediaList[targetSec] valueForKey:@"productName"][targetRow];
     NSString *url=[[self.mediaList[targetSec] valueForKey:@"contentInfo"][targetRow][0] valueForKeyPath:@"metadata.posterURL"];
     cell.imageview.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
@@ -132,9 +115,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    long current_row=indexPath.row;
+    NSInteger rowCount = 0;
+    for (NSInteger i = 0 ; i < indexPath.section; i ++) {
+        rowCount += [tableView numberOfRowsInSection:i];
+    }
+    rowCount=rowCount+indexPath.row;
     detailViewController *dvc=[[detailViewController alloc] initWithNibName:@"detailViewController" bundle:nil];
-    dvc.current_row=current_row;
+    dvc.current_row=rowCount;
     dvc.mediaList=self.mediaList;
     [self.navigationController pushViewController:dvc animated:YES];
 }
