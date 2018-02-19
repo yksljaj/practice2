@@ -17,6 +17,8 @@
 		40404CC4202ADCEC007D6C4B /* detailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40404CC2202ADCEC007D6C4B /* detailViewController.xib */; };
 		405616E320280AD700C22267 /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 405616E120280AD700C22267 /* CustomCollectionViewCell.m */; };
 		405616E420280AD700C22267 /* CustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405616E220280AD700C22267 /* CustomCollectionViewCell.xib */; };
+		40835DC620343F2E00AB2378 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40835DC420343F2E00AB2378 /* ScrollViewController.m */; };
+		40835DC720343F2E00AB2378 /* ScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40835DC520343F2E00AB2378 /* ScrollViewController.xib */; };
 		40A240C520201AB0007B718E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A240C420201AB0007B718E /* AppDelegate.m */; };
 		40A240CB20201AB0007B718E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40A240C920201AB0007B718E /* Main.storyboard */; };
 		40A240CE20201AB0007B718E /* practice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40A240CC20201AB0007B718E /* practice.xcdatamodeld */; };
@@ -60,6 +62,9 @@
 		405616E020280AD700C22267 /* CustomCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomCollectionViewCell.h; sourceTree = "<group>"; };
 		405616E120280AD700C22267 /* CustomCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomCollectionViewCell.m; sourceTree = "<group>"; };
 		405616E220280AD700C22267 /* CustomCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCollectionViewCell.xib; sourceTree = "<group>"; };
+		40835DC320343F2E00AB2378 /* ScrollViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
+		40835DC420343F2E00AB2378 /* ScrollViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
+		40835DC520343F2E00AB2378 /* ScrollViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScrollViewController.xib; sourceTree = "<group>"; };
 		40A240C020201AB0007B718E /* practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = practice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A240C320201AB0007B718E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		40A240C420201AB0007B718E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -143,6 +148,9 @@
 				40404CC0202ADCEC007D6C4B /* detailViewController.h */,
 				40404CC1202ADCEC007D6C4B /* detailViewController.m */,
 				40404CC2202ADCEC007D6C4B /* detailViewController.xib */,
+				40835DC320343F2E00AB2378 /* ScrollViewController.h */,
+				40835DC420343F2E00AB2378 /* ScrollViewController.m */,
+				40835DC520343F2E00AB2378 /* ScrollViewController.xib */,
 				40A240CF20201AB0007B718E /* Assets.xcassets */,
 				40A240D120201AB0007B718E /* LaunchScreen.storyboard */,
 				40A240D420201AB0007B718E /* Info.plist */,
@@ -281,6 +289,7 @@
 				402CE0B120299E5F00AAA298 /* CollectionViewController.xib in Resources */,
 				40404CC4202ADCEC007D6C4B /* detailViewController.xib in Resources */,
 				40A240CB20201AB0007B718E /* Main.storyboard in Resources */,
+				40835DC720343F2E00AB2378 /* ScrollViewController.xib in Resources */,
 				402CE0AA202984AD00AAA298 /* TableViewController.xib in Resources */,
 				405616E420280AD700C22267 /* CustomCollectionViewCell.xib in Resources */,
 				40323E8A2021BCF000CBADB8 /* CustomTableCell.xib in Resources */,
@@ -311,6 +320,7 @@
 				40A240CE20201AB0007B718E /* practice.xcdatamodeld in Sources */,
 				40A240D620201AB0007B718E /* main.m in Sources */,
 				40A240C520201AB0007B718E /* AppDelegate.m in Sources */,
+				40835DC620343F2E00AB2378 /* ScrollViewController.m in Sources */,
 				40404CC3202ADCEC007D6C4B /* detailViewController.m in Sources */,
 				402CE0A9202984AD00AAA298 /* TableViewController.m in Sources */,
 				405616E320280AD700C22267 /* CustomCollectionViewCell.m in Sources */,
@@ -481,6 +491,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 553HD6F3C8;
 				INFOPLIST_FILE = practice/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jessie.practice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -495,6 +506,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 553HD6F3C8;
 				INFOPLIST_FILE = practice/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jessie.practice;
 				PRODUCT_NAME = "$(TARGET_NAME)";

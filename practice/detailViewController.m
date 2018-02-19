@@ -12,6 +12,8 @@
 {
     NSMutableArray *posterURL;
     int zoomflag;
+    UIScrollView *pinchScrollView;
+    UIImageView *imageview;
 }
 @end
 
@@ -23,7 +25,9 @@
    // self.view.backgroundColor = [UIColor whiteColor];
     posterURL=[NSMutableArray new];
     
+    
     //find poster URL
+    
     for(int i=0;i<[self.mediaList count];i++){
         if ([self.mediaList[i] valueForKey:@"productName"] !=[NSNull null]) {
             
@@ -41,21 +45,27 @@
         }
     }
     
-    _detailScrollView.contentSize =CGSizeMake([posterURL count]*375,554);
+    for(int j=0;j<20;j++){
+        [posterURL addObjectsFromArray:posterURL];
+    }
+    
+    _detailScrollView.contentSize =CGSizeMake(20*375,554);
     
     //implement slide and pinch
-    for(int i = 0; i < [posterURL count]; i++){
+    for(int i = 0; i < 20; i++){
         UITapGestureRecognizer *doubleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTap:)];
         [doubleTap setNumberOfTapsRequired:2];
         
-        UIScrollView *pinchScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(375*i,0,375, 554)];
+        pinchScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(375*20,0,375, 554)];
         pinchScrollView.delegate =self;
+        pinchScrollView.showsVerticalScrollIndicator=NO;
+        pinchScrollView.showsHorizontalScrollIndicator=NO;
         pinchScrollView.contentSize =CGSizeMake(375,554);
-        pinchScrollView.minimumZoomScale =1.0;
-        pinchScrollView.maximumZoomScale =3.0;
+        pinchScrollView.minimumZoomScale =0.5;
+        pinchScrollView.maximumZoomScale =5.0;
         [pinchScrollView setZoomScale:1.0];
         
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0,0,375, 554)];
+        imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0,0,375, 554)];
         NSString *imageName = [posterURL objectAtIndex:i];
         imageview.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageName]]];
         
@@ -76,7 +86,7 @@
         if((current_origin.x)!=(self.current_row*375)&&((current_origin.x)!=0)){
             position=CGPointMake((current_origin.x), 0);
         }else{
-            position = CGPointMake(375*(self.current_row), 0);
+            position = CGPointMake(375*self.current_row, 0);
         }
     }else{
         if((current_origin.x)!=(self.current_row*667)&&((current_origin.x)!=0)){
@@ -89,6 +99,23 @@
     
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)myScrollView {
+ int pageNum = (int)(_detailScrollView.contentOffset.x / _detailScrollView.frame.size.width);
+    NSLog(@"%d",pageNum);
+    
+    if ( [_detailScrollView viewWithTag:(pageNum +1)] ) {
+        return;
+    }
+    else {
+        // view is missing, create it and set its tag to currentPage+1
+    }
+    
+    for ( int i = 0; i < pageNum; i++ ) {
+        if ( (i < (pageNum-1) || i > (pageNum+1)) && [_detailScrollView viewWithTag:(i+1)] ) {
+            [[_detailScrollView viewWithTag:(i+1)] removeFromSuperview];
+        }
+    }
+}
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
@@ -117,16 +144,16 @@
     }
 }
 
+
 -(void)handleDoubleTap:(UIGestureRecognizer *)gesture{
+    
     if(zoomflag==0){
     float enlarge = [(UIScrollView*)gesture.view.superview zoomScale] * 3.0;//每次双击放大倍数
     CGRect zoomRect = [self zoomRectForScale:enlarge withCenter:[gesture locationInView:gesture.view]];
     [(UIScrollView*)gesture.view.superview zoomToRect:zoomRect animated:YES];
         zoomflag=1;
     }else{
-        [(UIScrollView*)gesture.view.superview setZoomScale:1.0];
-        //CGRect zoomRect = [self zoomRectForScale:shrink withCenter:];
-    //[(UIScrollView*)gesture.view.superview zoomToRect:zoomRect animated:YES];
+        [(UIScrollView*)gesture.view.superview setZoomScale:1.0 animated:YES];
         zoomflag=0;
     }
 }
