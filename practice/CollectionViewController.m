@@ -26,7 +26,13 @@ static NSString * const reuseIdentifier = @"Cell";
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    self.collectionView.refreshControl=refreshControl;
+    
+    if (@available(iOS 10.0, *)) {
+        self.collectionView.refreshControl=refreshControl;
+    } else {
+        [self.collectionView addSubview:(refreshControl)];
+    }
+    
     
 }
 
