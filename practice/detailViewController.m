@@ -7,6 +7,7 @@
 //
 
 #import "detailViewController.h"
+#define space 40
 
 @interface detailViewController ()
 {
@@ -22,7 +23,7 @@
     int pageTag;
     int scrollflag;
     float pageOffset;
-    int prevPage;
+     int prevPage;
 }
 @end
 
@@ -40,8 +41,16 @@
     navH=self.navigationController.navigationBar.frame.size.height;
     tabH=self.tabBarController.tabBar.frame.size.height;
     detailScrollView.delegate =self;
-    detailScrollView.contentSize =CGSizeMake([posterURL count]*self.view.frame.size.width,self.view.frame.size.height-statusBarHeight-navH-tabH);
+    
+    CGRect scrollViewFrame = detailScrollView.frame;
+    scrollViewFrame.size.width += space;
+    detailScrollView.frame = scrollViewFrame;
+    
+    detailScrollView.contentSize =CGSizeMake([posterURL count]*(detailScrollView.frame.size.width),detailScrollView.frame.size.height-statusBarHeight-navH-tabH);
     //顯示點擊的圖片
+    
+    NSLog(@"w:%f",self.view.frame.size.width);
+    NSLog(@"h:%f",self.view.frame.size.height);
     
     CGPoint current_origin=CGPointMake(detailScrollView.bounds.origin.x,detailScrollView.bounds.origin.y);
     CGPoint position;
@@ -49,10 +58,10 @@
     if (([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait) ||
         [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown || [[UIDevice currentDevice] orientation] == UIDeviceOrientationUnknown || [[UIDevice currentDevice] orientation] == UIDeviceOrientationFaceUp)
     {
-        if((current_origin.x)!=(self.current_row*self.view.frame.size.width)&&((current_origin.x)!=0)){
+        if((current_origin.x)!=(self.current_row*(self.view.frame.size.width+40))&&((current_origin.x)!=0)){
             position=CGPointMake((current_origin.x), -(statusBarHeight+navH));
         }else{
-            position = CGPointMake(self.view.frame.size.width*self.current_row, -(statusBarHeight+navH));
+            position = CGPointMake((self.view.frame.size.width+40)*self.current_row, -(statusBarHeight+navH));
            // [self createPinchScrollView];
         }
     }else{
@@ -76,8 +85,8 @@
     
     NSMutableArray *arrImgUrl = [NSMutableArray new];
     posterURL=[NSMutableArray new];
-    
-    
+   // detailScrollView.itemspacing
+    //detailScrollView.pagingEnabled=NO;
     //find poster URL
     
     for(int i=0;i<[self.mediaList count];i++){
@@ -144,6 +153,20 @@
 
 
 -(void)scrollViewDidScroll:(UIScrollView *)_scrollView {
+    static NSInteger temp = 0;
+    static NSInteger p=0;
+    CGFloat pageWidth = _scrollView.frame.size.width;
+    float fractionalPage = _scrollView.contentOffset.x / pageWidth;
+    NSInteger page = lround(fractionalPage);
+    NSLog(@"page:%ld",(long)page);
+    if (temp != page) {
+        p=floor(temp);
+        temp = page;
+        /* Page did change */
+    }
+    NSLog(@"previousPage:%ld",(long)p);
+    prevPage=p;
+    
     
     const int MAX_SEARCH_INVALID_VIEW_REGION =1000;
     pageOffset = ((float)_scrollView.contentOffset.x/(float)_scrollView.frame.size.width);
@@ -152,7 +175,7 @@
     if(_scrollView.tag!=0) {
         return;
     }
-    NSLog(@"page offset: %.2f, scrollview position: %.2f _scrollView.tagID: %ld %d %d", pageOffset, _scrollView.contentOffset.x, (long)_scrollView.tag,pageNum,prevPage);
+    
     
     if((pageOffset - pageNum >FLT_EPSILON)
        && ((pageOffset - pageNum) <0.5f)){
@@ -163,11 +186,12 @@
     }else{
         
     }
-    prevPage=pageNum;
+    
+    //p=pageNum;
     
     pageTag = pageNum +1;
     
-    
+    NSLog(@"page offset: %.2f, scrollview position: %.2f _scrollView.tagID: %ld %d %d", pageOffset, _scrollView.contentOffset.x, (long)_scrollView.tag,pageNum,prevPage);
     if([_scrollView viewWithTag:(pageTag)] || pageNum>=posterURL.count) {
         NSLog(@"ZZ: view tag #%3d exist",pageTag);
         return;
@@ -194,24 +218,35 @@
     tmpPinchView = [[UIScrollView alloc]initWithFrame:
                     CGRectMake((pageNumber)*_srcScrollView.frame.size.width,
                                0,
-                               _srcScrollView.frame.size.width,
+                               (_srcScrollView.frame.size.width-space),
                                _srcScrollView.frame.size.height)];
     //CGSize size=tmpPinchView;
     tmpPinchView.delegate =self;
     tmpPinchView.showsVerticalScrollIndicator=NO;
     tmpPinchView.showsHorizontalScrollIndicator=NO;
-    tmpPinchView.contentSize =CGSizeMake(self.view.frame.size.width,self.view.frame.size.height-statusBarHeight-navH-tabH);
-    tmpPinchView.minimumZoomScale =0.5;
-    tmpPinchView.maximumZoomScale =5.0;
-    [tmpPinchView setZoomScale:1.0];
+    tmpPinchView.pagingEnabled=NO;
     
-    tmpImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height-statusBarHeight-navH-tabH)];
+    tmpPinchView.contentSize =CGSizeMake(self.view.frame.size.width,self.view.frame.size.height-statusBarHeight-navH-tabH);
+    
+    
+    
+    tmpImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0,(self.view.frame.size.width), self.view.frame.size.height-statusBarHeight-navH-tabH)];
     NSString *imageName = [posterURL objectAtIndex:pageNumber];
     tmpImgView.image =[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageName]]];
+    CGSize imageViewSize = tmpImgView.bounds.size;
+    CGSize scrollViewSize = tmpPinchView.bounds.size;
+    if(imageViewSize.width){
+        double widthScale = scrollViewSize.width / imageViewSize.width;
+        double heightScale = scrollViewSize.height / imageViewSize.height;
+        tmpPinchView.minimumZoomScale =MIN(widthScale, heightScale);
+        tmpPinchView.maximumZoomScale =5.0;
+        [tmpPinchView setZoomScale:1.0];
+    }
     
     tmpImgView.userInteractionEnabled =YES;
     
     UITapGestureRecognizer *doubleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTap:)];
+    doubleTap.cancelsTouchesInView = NO;
     [doubleTap setNumberOfTapsRequired:2];
     [tmpImgView addGestureRecognizer:doubleTap];
     [tmpPinchView addSubview:tmpImgView];
@@ -226,64 +261,83 @@
     }
     return nil;
 }
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-//
-//    NSLog(@"scrollViewDidEndDragging");
-//    if (decelerate) {
-//
-//
-//        for (UIScrollView *s in scrollView.subviews){
-//            if ([s isKindOfClass:[UIScrollView class]]){
-//                [s setZoomScale:1.0 animated:YES]; //scrollView每滑动一次将要出现的图片较正常时候图片的倍数（将要出现的图片显示的倍数）
-//            }
-//        }
-//    }else{
-//        NSLog(@"no decelerate");
-//
-//    }
-//
-//    CGPoint point=scrollView.contentOffset;
-//    NSLog(@"%f,%f",point.x,point.y);
-//
-//}
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)_scrollView{
-    float currentPage = _scrollView.contentOffset.x /_scrollView.frame.size.width;
-    bool isDiffPage = false;
-    if(_scrollView == detailScrollView)
-    {
-        
-        if(currentPage != prevPage)
-        {
-            isDiffPage = true;
-            for (UIScrollView *s in _scrollView.subviews){
-                if ([s isKindOfClass:[UIScrollView class]]){
-                    [s setZoomScale:1.0]; //scrollView每滑动一次将要出现的图片较正常时候图片的倍数（将要出现的图片显示的倍数）
-                }
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+
+    NSLog(@"scrollViewDidEndDragging");
+    if (decelerate) {
+
+
+        for (UIScrollView *s in scrollView.subviews){
+            if ([s isKindOfClass:[UIScrollView class]]){
+                [s setZoomScale:1.0 animated:YES]; //scrollView每滑动一次将要出现的图片较正常时候图片的倍数（将要出现的图片显示的倍数）
             }
         }
-        
-        zoomflag=0;
-        NSLog(@"end dec page: %.2f, isDiffPage: %d", currentPage, isDiffPage);
+    }else{
+        NSLog(@"no decelerate");
+
     }
+
+    CGPoint point=scrollView.contentOffset;
+    NSLog(@"%f,%f",point.x,point.y);
+
 }
-    
+
+//- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+//    static int pre;
+//}
+//
+//-(void)scrollViewDidEndDecelerating:(UIScrollView *)_scrollView{
+//
+//    float pageWidth=_scrollView.frame.size.width;
+//    float currentPage =floor((_scrollView.contentOffset.x-pageWidth/2)/pageWidth)+1;
+//    bool isDiffPage = false;
+//    NSLog(@"current:%f  prev:%d",currentPage,prevPage);
+//    if(_scrollView == detailScrollView)
+//    {
+//
+//        if(currentPage != prevPage)
+//        {
+//            isDiffPage = true;
+//            for (UIScrollView *s in _scrollView.subviews){
+//                if ([s isKindOfClass:[UIScrollView class]]){
+//                    [s setZoomScale:1.0]; //scrollView每滑动一次将要出现的图片较正常时候图片的倍数（将要出现的图片显示的倍数）
+//                }
+//            }
+//
+//        }
+//
+//
+//        //zoomflag=0;
+//        NSLog(@"end dec page: %.2f, isDiffPage: %d", currentPage, isDiffPage);
+//    }
+//}
+
     
     
     -(void)handleDoubleTap:(UIGestureRecognizer *)gesture{
         
-        if(zoomflag==0){
-            NSLog(@"%f",self.view.frame.size.height);
-            NSLog(@"%f",self.view.frame.size.width);
+        if ([(UIScrollView*)gesture.view.superview zoomScale] > [(UIScrollView*)gesture.view.superview minimumZoomScale]) {
+            [(UIScrollView *)gesture.view.superview setZoomScale:[(UIScrollView*)gesture.view.superview minimumZoomScale]  animated: true];
+        } else {
             
-            float enlarge = [(UIScrollView*)gesture.view.superview zoomScale] * 5.0;//每次双击放大倍数
+            float enlarge = [(UIScrollView*)gesture.view.superview maximumZoomScale];//每次双击放大倍数
             CGRect zoomRect = [self zoomRectForScale:enlarge withCenter:[gesture locationInView:gesture.view]];
             [(UIScrollView*)gesture.view.superview zoomToRect:zoomRect animated:YES];
-            zoomflag=1;
-        }else{
-            [(UIScrollView*)gesture.view.superview setZoomScale:1.0 animated:YES];
-            zoomflag=0;
+            //[(UIScrollView *)gesture.view.superview setZoomScale:[(UIScrollView*)gesture.view.superview maximumZoomScale]  animated: true];
         }
+//        if(zoomflag==0){
+//            NSLog(@"%f",self.view.frame.size.height);
+//            NSLog(@"%f",self.view.frame.size.width);
+//
+//            float enlarge = [(UIScrollView*)gesture.view.superview zoomScale] * 5.0;//每次双击放大倍数
+//            CGRect zoomRect = [self zoomRectForScale:enlarge withCenter:[gesture locationInView:gesture.view]];
+//            [(UIScrollView*)gesture.view.superview zoomToRect:zoomRect animated:YES];
+//            zoomflag=1;
+//        }else{
+//            [(UIScrollView*)gesture.view.superview setZoomScale:1.0 animated:YES];
+//            zoomflag=0;
+//        }
     }
     
     - (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center{

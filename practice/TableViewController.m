@@ -10,6 +10,7 @@
 #import "CustomTableCell.h"
 #import "CollectionViewController.h"
 #import "detailViewController.h"
+
 @interface TableViewController ()
 
 @end
@@ -24,7 +25,7 @@
     self.refreshControl=[UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     
-    
+    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
 
 -(void)fetchData{
@@ -104,9 +105,13 @@
     cell.label.text = [self.mediaList[targetSec] valueForKey:@"productName"][targetRow];
     NSString *url=[[self.mediaList[targetSec] valueForKey:@"contentInfo"][targetRow][0] valueForKeyPath:@"metadata.posterURL"];
     cell.imageview.image=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    //[cell.imageView seti:[NSURL URLWithString:@"http://www.domain.com/path/to/image.jpg"]
+                  // placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     cell.imageview.layer.cornerRadius = 10;
     
     return cell;
+    
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
