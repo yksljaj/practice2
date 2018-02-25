@@ -25,6 +25,8 @@
 		40A240D620201AB0007B718E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A240D520201AB0007B718E /* main.m */; };
 		40A240E020201AB1007B718E /* practiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A240DF20201AB1007B718E /* practiceTests.m */; };
 		40A240EB20201AB1007B718E /* practiceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A240EA20201AB1007B718E /* practiceUITests.m */; };
+		F80815F82042F8510084A381 /* media.m in Sources */ = {isa = PBXBuildFile; fileRef = F80815F72042F8510084A381 /* media.m */; };
+		F80815FB2042FB260084A381 /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = F80815FA2042FB260084A381 /* ImageDownloader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +53,8 @@
 		402CE0AD20299E5F00AAA298 /* CollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
 		402CE0AE20299E5F00AAA298 /* CollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		402CE0AF20299E5F00AAA298 /* CollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewController.xib; sourceTree = "<group>"; };
-		402CE0B22029B29100AAA298 /* CustomTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CustomTableCell.h; path = /Users/jessie/Desktop/practice/practice/CustomTableCell.h; sourceTree = "<absolute>"; };
-		402CE0B32029B29100AAA298 /* CustomTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CustomTableCell.m; path = /Users/jessie/Desktop/practice/practice/CustomTableCell.m; sourceTree = "<absolute>"; };
+		402CE0B22029B29100AAA298 /* CustomTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CustomTableCell.h; path = /Users/MikeBook/Documents/CODING/HOUSE/mike_proj/readOnlineJSONmike/practice/CustomTableCell.h; sourceTree = "<absolute>"; };
+		402CE0B32029B29100AAA298 /* CustomTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CustomTableCell.m; path = /Users/MikeBook/Documents/CODING/HOUSE/mike_proj/readOnlineJSONmike/practice/CustomTableCell.m; sourceTree = "<absolute>"; };
 		40323E892021BCF000CBADB8 /* CustomTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableCell.xib; sourceTree = "<group>"; };
 		40404CC0202ADCEC007D6C4B /* detailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detailViewController.h; sourceTree = "<group>"; };
 		40404CC1202ADCEC007D6C4B /* detailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = detailViewController.m; sourceTree = "<group>"; };
@@ -75,6 +77,10 @@
 		40A240E620201AB1007B718E /* practiceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = practiceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A240EA20201AB1007B718E /* practiceUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = practiceUITests.m; sourceTree = "<group>"; };
 		40A240EC20201AB1007B718E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F80815F62042F8510084A381 /* media.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = media.h; sourceTree = "<group>"; };
+		F80815F72042F8510084A381 /* media.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = media.m; sourceTree = "<group>"; };
+		F80815F92042FB260084A381 /* ImageDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageDownloader.h; sourceTree = "<group>"; };
+		F80815FA2042FB260084A381 /* ImageDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageDownloader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,10 @@
 				402CE0A6202984AD00AAA298 /* TableViewController.h */,
 				402CE0A7202984AD00AAA298 /* TableViewController.m */,
 				402CE0A8202984AD00AAA298 /* TableViewController.xib */,
+				F80815F62042F8510084A381 /* media.h */,
+				F80815F72042F8510084A381 /* media.m */,
+				F80815F92042FB260084A381 /* ImageDownloader.h */,
+				F80815FA2042FB260084A381 /* ImageDownloader.m */,
 				402CE0B22029B29100AAA298 /* CustomTableCell.h */,
 				402CE0B32029B29100AAA298 /* CustomTableCell.m */,
 				40323E892021BCF000CBADB8 /* CustomTableCell.xib */,
@@ -310,7 +320,9 @@
 			files = (
 				40A240CE20201AB0007B718E /* practice.xcdatamodeld in Sources */,
 				40A240D620201AB0007B718E /* main.m in Sources */,
+				F80815FB2042FB260084A381 /* ImageDownloader.m in Sources */,
 				40A240C520201AB0007B718E /* AppDelegate.m in Sources */,
+				F80815F82042F8510084A381 /* media.m in Sources */,
 				40404CC3202ADCEC007D6C4B /* detailViewController.m in Sources */,
 				402CE0A9202984AD00AAA298 /* TableViewController.m in Sources */,
 				405616E320280AD700C22267 /* CustomCollectionViewCell.m in Sources */,

@@ -10,5 +10,6 @@
 
 @interface TableViewController : UITableViewController
 @property NSMutableArray *mediaList;
+@property NSMutableArray *dataArray;
 -(void)fetchData;
 @end

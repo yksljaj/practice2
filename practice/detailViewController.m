@@ -62,7 +62,7 @@
             position=CGPointMake((current_origin.x), -(statusBarHeight+navH));
         }else{
             position = CGPointMake((self.view.frame.size.width+40)*self.current_row, -(statusBarHeight+navH));
-           // [self createPinchScrollView];
+            [self createPinchScrollView:detailScrollView atPage:self.current_row];
         }
     }else{
         if((current_origin.x)!=(self.current_row*self.view.frame.size.width)&&((current_origin.x)!=0)){
